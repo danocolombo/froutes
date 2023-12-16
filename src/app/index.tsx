@@ -1,3 +1,4 @@
+import { printObject } from '@utils/helpers';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Image, StyleSheet, Text, View } from 'react-native';
@@ -29,7 +30,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#e8e8e8',
         alignItems: 'center',
         justifyContent: 'center',
     },
