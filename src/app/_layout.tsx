@@ -10,6 +10,8 @@ import {
     Roboto_700Bold,
     Roboto_700Bold_Italic,
 } from '@expo-google-fonts/roboto';
+import { store } from '@/store/store';
+import { Provider } from 'react-redux';
 /** -------------------------------------
  * ALL GLOBAL CONFIGURATIONS IN THIS FILE
 -------------------------------------- */
@@ -40,12 +42,17 @@ export default function RootLayout() {
         return null;
     }
     return (
-        <Stack
-            screenOptions={{
-                headerStyle: { backgroundColor: 'lightgrey' },
-            }}
-        >
-            <Stack.Screen name='index' options={{ title: 'Default Title' }} />
-        </Stack>
+        <Provider store={store}>
+            <Stack
+                screenOptions={{
+                    headerStyle: { backgroundColor: 'lightgrey' },
+                }}
+            >
+                <Stack.Screen
+                    name='index'
+                    options={{ title: 'Default Title' }}
+                />
+            </Stack>
+        </Provider>
     );
 }

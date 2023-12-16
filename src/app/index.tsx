@@ -1,9 +1,12 @@
-import { printObject } from '@utils/helpers';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import { printObject } from '@utils/helpers';
 
 const HomeScreen = () => {
+    const froutesInfo = useSelector((state) => state.froutes);
+    // printObject('froutesInfo:', froutesInfo);
     return (
         <View style={styles.container}>
             <Stack.Screen options={{ title: 'Main Screen' }} />
@@ -20,8 +23,16 @@ const HomeScreen = () => {
                 <Text style={styles.text}>This has...</Text>
                 <Text style={styles.item}>Expo Typescript Aliases</Text>
                 <Text style={styles.item}>src/app starting folder</Text>
+                <Text style={styles.item}>ReduxJS.Toolkit</Text>
                 <Text style={styles.item}>Google Fonts</Text>
             </View>
+            {froutesInfo && (
+                <View style={styles.versionContainer}>
+                    <Text style={styles.versionText}>
+                        {froutesInfo.version}
+                    </Text>
+                </View>
+            )}
             <StatusBar style='auto' />
         </View>
     );
@@ -45,6 +56,13 @@ const styles = StyleSheet.create({
     item: {
         fontSize: 18,
         fontFamily: 'robotoThin',
+    },
+    versionContainer: {
+        padding: 20,
+    },
+    versionText: {
+        fontSize: 18,
+        fontFamily: 'robotoItalic',
     },
 });
 export default HomeScreen;
