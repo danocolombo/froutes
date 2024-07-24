@@ -20,18 +20,18 @@ const HomeScreen = () => {
             <View>
                 <Image
                     source={require('@assets/images/DoItNow.jpg')}
-                    style={{ height: 300, aspectRatio: 1 / 1 }}
+                    style={{ height: 200, aspectRatio: 1 / 1 }}
                 />
             </View>
             <View>
                 <Text style={styles.title}>Great Start!!</Text>
             </View>
-            <View>
+            <View style={{ padding: 10 }}>
                 <Text style={styles.text}>This has...</Text>
-                <Text style={styles.item}>Expo Typescript Aliases</Text>
-                <Text style={styles.item}>src/app starting folder</Text>
-                <Text style={styles.item}>Google Fonts</Text>
-                <Text style={styles.item}>Reduxjs.Toolkit</Text>
+                <Text style={styles.item}>
+                    Expo Typescript Aliases, src/app starting folder, Google
+                    Fonts,Reduxjs.Toolkit & modal-datetime-picker
+                </Text>
             </View>
             <View style={styles.reduxContainer}>
                 <View style={styles.inventoryContainer}>
@@ -53,6 +53,13 @@ const HomeScreen = () => {
                     </Text>
                 </View>
             </View>
+            <Link href={'dtpicker'} asChild>
+                <Pressable>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}>Date/Time Picker</Text>
+                    </View>
+                </Pressable>
+            </Link>
             <Link href={'test'} asChild>
                 <Pressable>
                     <View style={styles.button}>
@@ -98,11 +105,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     text: {
-        fontSize: 20,
+        fontSize: 16,
         fontFamily: 'roboto',
     },
     item: {
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: 'robotoThin',
     },
     reduxContainer: {
