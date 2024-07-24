@@ -5,6 +5,7 @@ It has the following features function.
 
 -   Expo Router with Typescript aliases
 -   Google fonts added
+-   DateTime Picker example
 -   Reduxjs.Toolkit implemented
     -- combined reducers
     -- extracted thunks

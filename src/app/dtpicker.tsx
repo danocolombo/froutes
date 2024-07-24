@@ -1,38 +1,43 @@
-import { Pressable, StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import React, { useState } from 'react';
+import { useLocalSearchParams } from 'expo-router';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { startOfDay, parseISO, format } from 'date-fns';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const TestScreen = () => {
-    const [selectedDate, setSelectedDate] = useState(() => {
-        const today = new Date();
-        return new Date(
-            Date.UTC(
-                today.getUTCFullYear(),
-                today.getUTCMonth(),
-                today.getUTCDate()
-            )
-        );
-    });
-    const [datePickerVisible, setDatePickerVisible] = useState(false);
+type RouteParams = {
+    date?: string;
+};
 
-    const showDatePicker = () => {
+const TestScreen: React.FC = () => {
+    const { date } = useLocalSearchParams<RouteParams>();
+    const [selectedDate, setSelectedDate] = useState<Date>(() => {
+        if (date) {
+            // Parse the passed date string and set it to start of day
+            return startOfDay(parseISO(date));
+            // return startOfDay(parse(date, 'yyyy-MM-dd', new Date()));
+        } else {
+            // If no date is passed, use start of today
+            return startOfDay(new Date());
+        }
+    });
+    const [datePickerVisible, setDatePickerVisible] = useState<boolean>(false);
+
+    const showDatePicker = (): void => {
         setDatePickerVisible(true);
     };
 
-    const hideDatePicker = () => {
+    const hideDatePicker = (): void => {
         setDatePickerVisible(false);
     };
 
-    const handleConfirm = (date) => {
-        const utcDate = new Date(
-            Date.UTC(
-                date.getUTCFullYear(),
-                date.getUTCMonth(),
-                date.getUTCDate()
-            )
-        );
-        setSelectedDate(utcDate);
+    const handleConfirm = (date: Date): void => {
+        const newDate = startOfDay(date);
+        setSelectedDate(newDate);
+
+        const dateString = format(newDate, 'yyyy-MM-dd');
+        console.log('new date string value:', dateString);
+
         hideDatePicker();
     };
 
@@ -51,6 +56,9 @@ const TestScreen = () => {
                     alignItems: 'center',
                 }}
             >
+                <Text style={{ textAlign: 'center', padding: 30 }}>
+                    The date value is passed in params from main index page
+                </Text>
                 <Text
                     style={{
                         fontSize: 24,
@@ -59,10 +67,10 @@ const TestScreen = () => {
                     }}
                 >
                     {selectedDate
-                        ? selectedDate.toLocaleDateString()
+                        ? format(selectedDate, 'M/d/yyyy')
                         : 'No date selected'}
                 </Text>
-                <Button title='Select a date' onPress={showDatePicker} />
+                <Button title='Change the date' onPress={showDatePicker} />
             </View>
             <DateTimePickerModal
                 date={selectedDate}

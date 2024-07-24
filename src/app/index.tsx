@@ -53,7 +53,13 @@ const HomeScreen = () => {
                     </Text>
                 </View>
             </View>
-            <Link href={'dtpicker'} asChild>
+            <Link
+                href={{
+                    pathname: 'dtpicker',
+                    params: { date: '2024-07-30' },
+                }}
+                asChild
+            >
                 <Pressable>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Date/Time Picker</Text>
